@@ -18,6 +18,9 @@ var twoWasPicked = false;
 var threeWasPicked = false;
 var fourWasPicked = false;
 var score = 0;
+var timeBasedScore = 0;
+
+
 
 //clicking starts the quiz, disables quiz button, starts timer, updates timer field, starts coundown and spawn question
 $(".btn-primary").click(function(){
@@ -33,40 +36,40 @@ $(".btn-secondary").click(function(){
     setTimeout('pickQuestion()', 100); 
 });
 
-//clicking choices sets value to true briefly to enable scoring
+//clicking choices sets value to true briefly to enable scoring, then back to false
 $("#col-4-field1").click(function(){
     oneWasPicked = true;
     console.log("choice one is: " + oneWasPicked);  
     answerChecker();
+    oneWasPicked = false;
 });
 
 $("#col-4-field2").click(function(){
     twoWasPicked = true;
     console.log("choice two is: " + twoWasPicked);
     answerChecker();
+    twoWasPicked = false;
 });
 
 $("#col-4-field3").click(function(){
     threeWasPicked = true;
     console.log("choice three is: " + threeWasPicked);
     answerChecker();
+    threeWasPicked = false;
 });
 
 $("#col-4-field4").click(function(){
     fourWasPicked = true;
     console.log("choice four is: " + fourWasPicked);
     answerChecker();
+    fourWasPicked = false;
 });
 
 //picks questions and choices when invoked
 function pickQuestion(){
-    oneWasPicked = false;
-    twoWasPicked = false;
-    threeWasPicked = false;
-    fourWasPicked = false;
-    var randomQuestionPicker = Math.floor(Math.random() * questionArray.length);
+  
+    randomQuestionPicker = Math.floor(Math.random() * questionArray.length);
     currentQuestion.innerHTML = questionArray[randomQuestionPicker];
-    console.log(oneWasPicked);
     if(randomQuestionPicker==0){
         $("#col-4-field1 button").text(question1choices[0])
         $("#col-4-field2 button").text(question1choices[1])
@@ -129,46 +132,97 @@ function Decrement(){
     timerValue.innerHTML = "Timer: " + timeRemaining;
 }
 
-
+//checks for correct answer, if correct, adds to score, but if subtracts 15 seconds if wrong
 function answerChecker(){
-    if(randomQuestionPicker == 0 && oneWasPicked == true){
-        console.log("score added for question 1");
-        score++; 
+    console.log("questionPicker is: " + randomQuestionPicker);
+    
+    if(randomQuestionPicker == 0){
+        if(oneWasPicked == true){
+            console.log("score added for question 1");
+            score++;
+        }else{
+            timeRemaining-=15;
+        }
     }
 
-    if(randomQuestionPicker == 1 && twoWasPicked == true){
-        score++; 
-        console.log("score added for question 2");
+    if(randomQuestionPicker == 1){
+        if(twoWasPicked == true){
+            console.log("score added for question 1");
+            score++;
+        }else{
+            timeRemaining-=15;
+        }
     }
 
-    if(randomQuestionPicker == 2 && oneWasPicked == true){
-        score++; 
-        console.log("score added for question 3");
+    if(randomQuestionPicker == 2){
+        if(oneWasPicked == true){
+            console.log("score added for question 1");
+            score++;
+        }else{
+            timeRemaining-=15;
+        }
     }
 
-    if(randomQuestionPicker == 3 && threeWasPicked == true){
-        score++; 
-        console.log("score added for question 4");
+    if(randomQuestionPicker == 3){
+        if(threeWasPicked == true){
+            console.log("score added for question 1");
+            score++;
+        }else{
+            timeRemaining-=15;
+        }
     }
 
-    if(randomQuestionPicker == 4 && fourWasPicked == true){
-        score++; 
-        console.log("score added for question 5");
+    if(randomQuestionPicker == 4){
+        if(fourWasPicked == true){
+            console.log("score added for question 1");
+            score++;
+        }else{
+            timeRemaining-=15;
+        }
     }
 
-    if(randomQuestionPicker == 5 && fourWasPicked == true){
-        score++; 
-        console.log("score added for question 6");
+    if(randomQuestionPicker == 5){
+        if(fourWasPicked == true){
+            console.log("score added for question 1");
+            score++;
+        }else{
+            timeRemaining-=15;
+        }
     }
 
-    if(randomQuestionPicker == 6 && oneWasPicked == true){
-        score++;
-        console.log("score added for question 7"); 
+    if(randomQuestionPicker == 6){
+        if(oneWasPicked == true){
+            console.log("score added for question 1");
+            score++;
+        }else{
+            timeRemaining-=15;
+        }
     }
 
-    if(randomQuestionPicker == 7 && fourWasPicked == true){
-        score++; 
-        console.log("score added for question 8");
+    if(randomQuestionPicker == 7){
+        if(fourWasPicked == true){
+            console.log("score added for question 1");
+            score++;
+        }else{
+            timeRemaining-=15;
+        }
     }
+
     console.log(score);
 }
+
+    
+function winCondition(){
+    if (score == 7){
+
+    }
+}
+
+function lossCondition(){
+    if (timeRemaining == 0){
+        
+    }
+}
+
+
+//timebasedscorefunction
