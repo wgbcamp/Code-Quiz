@@ -20,6 +20,7 @@ var fourWasPicked = false;
 var score = 0;
 var timeBasedScore = 0;
 var scoreOnScreen = document.getElementById("scoreText");
+var highScoreHooker = document.getElementById("HighScoreHolder");
 
 
 
@@ -65,6 +66,8 @@ $("#col-4-field4").click(function(){
     answerChecker();
     fourWasPicked = false;
 });
+
+
 
 //picks questions and choices when invoked
 function pickQuestion(){
@@ -254,8 +257,12 @@ function endScreen(){
     
     currentQuestion.innerHTML = "All done!";
     scoreOnScreen.innerHTML = "Your final score is: " + timeBasedScore;
-
+    localStorage.setItem("highscore", timeBasedScore);
 }
 
 
 
+//click to view high score
+$(".highScoreHolder").click(function(){
+    highScoreHooker.innerHTML = localStorage.getItem("highscore");
+})
