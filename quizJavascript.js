@@ -19,6 +19,7 @@ var threeWasPicked = false;
 var fourWasPicked = false;
 var score = 0;
 var timeBasedScore = 0;
+var scoreOnScreen = document.getElementById("scoreText");
 
 
 
@@ -122,18 +123,30 @@ function pickQuestion(){
 }
 
 function countdown() {
-    if(timeRemaining>0){
     setInterval('Decrement()', 1000);   
 }
-}
+
 
 function Decrement(){
+    if(currentQuestion.innerHTML == "All done!"){
+        timerValue.innerHTML = "Time's up!"; 
+        return;
+    }
+    if(timeRemaining>1){
+    console.log (timeRemaining);
     timeRemaining--;
     timerValue.innerHTML = "Timer: " + timeRemaining;
+    }else{
+        timerValue.innerHTML = "Time's up!";
+        lossCondition();
+    }
+    
 }
 
-//checks for correct answer, if correct, adds to score, but if subtracts 15 seconds if wrong
+//checks for correct answer, if correct, adds to score, but if subtracts 15 seconds if wrong... also checks for win/loss conditions
 function answerChecker(){
+    
+   
     console.log("questionPicker is: " + randomQuestionPicker);
     
     if(randomQuestionPicker == 0){
@@ -209,20 +222,40 @@ function answerChecker(){
     }
 
     console.log(score);
-}
+
+    if (score == 7){
+        winCondition();
+    }
 
     
-function winCondition(){
-    if (score == 7){
+}
 
-    }
+
+//functions run when win/loss is detected and calculates timebasedScoring 
+function winCondition(){
+    $(".choicesContainer").remove();
+    console.log("win");
+    timeBasedScore = score + timeRemaining;
+    console.log("Your score was " + score + " and you had " + timeRemaining + " seconds left, therefore your " + timeBasedScore + " is your timeBasedScore");
+    setTimeout('endScreen()', 100);
 }
 
 function lossCondition(){
-    if (timeRemaining == 0){
-        
-    }
+    $(".choicesContainer").remove();  
+    console.log("loss");
+    timeBasedScore = score;
+    console.log ("Your losing score was " + timeBasedScore);
+    setTimeout('endScreen()', 100);
 }
 
 
-//timebasedscorefunction
+
+function endScreen(){
+    
+    currentQuestion.innerHTML = "All done!";
+    scoreOnScreen.innerHTML = "Your final score is: " + timeBasedScore;
+
+}
+
+
+
