@@ -6,7 +6,6 @@ var currentQuestion = document.getElementById("questionField");
 var questionArray = ["Which of the following countries is located in the continent of Africa?", "Who was the first person to walk on the Moon?", "Is the earth actually flat?", "How many planets are in our Solar System?", "When calculating digital storage, which formula would correctly convert bits to bytes?", "Which essential resource do humans need in order to survive?", "What is the official animal of Scotland?", "Which of the following dog breeds is the largest?"];
 var randomQuestionPicker = 0;
 var choicesArray = [
-    
     ['question1choices', "Angola", "Peru", "Iran", "Belgium"],
     ['question2choices', "Albert Einstein", "Neil Armstrong", "Amelia Earhart", "Abraham Lincoln"],
     ['question3choices', "No.", "Yes.", "--> YES. <--", "Of course it is."],
@@ -24,7 +23,12 @@ var fourWasPicked = false;
 var score = 0;
 var timeBasedScore = 0;
 var scoreOnScreen = document.getElementById("scoreText");
-var highScoreHooker = document.getElementById("HighScoreHolder");
+
+
+window.onload = function(){
+    
+ 
+}
 
 
 
@@ -170,6 +174,7 @@ function winCondition(){
     timeBasedScore = score + timeRemaining;
     console.log("Your score was " + score + " and you had " + timeRemaining + " seconds left, therefore your " + timeBasedScore + " is your timeBasedScore");
     setTimeout('endScreen()', 100);
+    
 }
 
 function lossCondition(){
@@ -183,16 +188,22 @@ function lossCondition(){
 
 
 function endScreen(){
-    
+    var locallyStoredScore = [];
+    locallyStoredScore.push(timeBasedScore);
+    console.log(locallyStoredScore);
+    localStorage.setItem("highscore", JSON.stringify(locallyStoredScore));
     currentQuestion.innerHTML = "All done!";
     scoreOnScreen.innerHTML = "Your final score is: " + timeBasedScore;
-    localStorage.setItem("highscore", timeBasedScore);
+    timeBasedScore = 0;
 }
 
 
 
-//click to view high score
-$(".highScoreHolder").click(function(){
-    console.log(localStorage.getItem("highscore"));
-    highScoreHooker.innerHTML = localStorage.getItem("highscore");
+$("#highScoreHolder").click(function(){
+    
+    
+    var highscoreGet = localStorage.getItem("highscore");
+    $(".highscoreContainer").append(highscoreGet);  
+    
+    
 })
